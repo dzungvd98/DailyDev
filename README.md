@@ -5,5 +5,6 @@ Create Application like Daily Dev
 ![Daily Dev](https://github.com/user-attachments/assets/af098bef-4fc4-451c-82f6-b46e20d6cfce)
 
 # Database diagram for daily dev application
-![Untitled (4)](https://github.com/user-attachments/assets/4108d8ca-cdee-48f8-b52a-bc2607836e65)
+![Untitled (5)](https://github.com/user-attachments/assets/64622853-dcf3-4548-9e85-dffe3021209c)
+
 
