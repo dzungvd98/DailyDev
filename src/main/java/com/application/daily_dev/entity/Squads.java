@@ -8,10 +8,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Table(name = "Squads")
@@ -34,6 +37,12 @@ public class Squads {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @ManyToMany(mappedBy = "squads")
+    private Set<Articles> articles;
+
+    @OneToMany(mappedBy = "squad")
+    private Set<SquadMembers> members;
 
     public int getId() {
         return id;

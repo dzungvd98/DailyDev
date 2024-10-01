@@ -1,5 +1,5 @@
 package com.application.daily_dev.model;
 
-public enum Reaction {
+public enum ReactionType {
     LIKE, UPVOTE, CLAP
 }

@@ -1,5 +1,5 @@
 package com.application.daily_dev.model;
 
-public enum SourceType {
-    USER, RSS
+public enum Role {
+    ADMIN, MEMBER
 }
