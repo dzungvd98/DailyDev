@@ -47,11 +47,11 @@ public class Articles {
     @Column(name = "source_type", nullable = false)
     private SourceType sourceType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rss_id")
     private RssSources rss;
 

@@ -43,7 +43,7 @@ public class Topics {
     private Set<Tags> tags;
 
     @OneToMany(mappedBy = "followedTopic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Topics> followingTopics;
+    private Set<Subscriptions> followingTopics;
 
     public int getId() {
         return id;
