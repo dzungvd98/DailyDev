@@ -55,9 +55,9 @@ public class Articles {
     @JoinColumn(name = "rss_id")
     private RssSources rss;
 
-    @PastOrPresent(message = "Published date must be in the past or present")
+    @PastOrPresent(message = "Updated date must be in the past or present")
     @Column(name = "published_at")
-    private LocalDateTime publishedAt;
+    private LocalDateTime updatedAt;
 
     @Size(max = 255, message = "Thumbnail URL should not exceed 255 characters")
     @Column(name = "thumbnail_url")
@@ -152,12 +152,12 @@ public class Articles {
         this.rss = rss;
     }
 
-    public LocalDateTime getPublishedAt() {
-        return publishedAt;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setPublishedAt(LocalDateTime publishedAt) {
-        this.publishedAt = publishedAt;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getThumbnailUrl() {

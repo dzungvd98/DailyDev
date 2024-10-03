@@ -45,6 +45,9 @@ public class RssSources {
     @OneToMany(mappedBy = "rss", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Articles> articles;
 
+    @OneToMany(mappedBy = "rssSource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<RSSFeedCategories> rssFeedCategories;
+
     public int getId() {
         return id;
     }
