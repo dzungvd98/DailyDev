@@ -43,5 +43,21 @@ public class Categories {
         this.name = name;
     }
 
+    public String getTopicUrl() {
+        return topicUrl;
+    }
+
+    public void setTopicUrl(String topicUrl) {
+        this.topicUrl = topicUrl;
+    }
+
+    public RssSources getRssSource() {
+        return rssSource;
+    }
+
+    public void setRssSource(RssSources rssSource) {
+        this.rssSource = rssSource;
+    }
+
     
 }

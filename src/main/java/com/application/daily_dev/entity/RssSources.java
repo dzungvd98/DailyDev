@@ -32,10 +32,6 @@ public class RssSources {
     @Column(name = "rss_url")
     private String rssUrl;
 
-    @Size(max = 255, message = "Website URL must be less than 255 characters")
-    @Column(name = "website_url")
-    private String website_url;
-
     @Column(name = "last_fetched_at")
     private LocalDateTime lastFetchedAt;
     
@@ -70,14 +66,6 @@ public class RssSources {
 
     public void setRssUrl(String rssUrl) {
         this.rssUrl = rssUrl;
-    }
-
-    public String getWebsite_url() {
-        return website_url;
-    }
-
-    public void setWebsite_url(String website_url) {
-        this.website_url = website_url;
     }
 
     public LocalDateTime getLastFetchedAt() {

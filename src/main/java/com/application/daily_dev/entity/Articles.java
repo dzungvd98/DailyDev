@@ -56,7 +56,7 @@ public class Articles {
     private RssSources rss;
 
     @PastOrPresent(message = "Updated date must be in the past or present")
-    @Column(name = "published_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Size(max = 255, message = "Thumbnail URL should not exceed 255 characters")
