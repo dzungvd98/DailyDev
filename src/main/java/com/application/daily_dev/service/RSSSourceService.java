@@ -31,4 +31,11 @@ public class RSSSourceService {
             rssCategoriesService.fetchAndStoreArticlesByCategory(category);
         }
     }
+
+    public void fetchAndStoreArticles() throws IOException, FeedException {
+        List<RssSources> sources = rssSourceRepository.findAll();
+        for(RssSources rss : sources) {
+            fetchAndStoreArticlesInSource(rss.getId());
+        }
+    }
 }
