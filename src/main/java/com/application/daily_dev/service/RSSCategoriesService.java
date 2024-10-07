@@ -38,6 +38,10 @@ public class RSSCategoriesService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+
+    @Autowired
+    private TopicService topicService;
+
     @Transactional
     public void fetchAndStoreArticlesByCategory(Categories category) throws IOException, FeedException {
         String topicUrl = category.getTopicUrl();
@@ -112,6 +116,9 @@ public class RSSCategoriesService {
         // ADD category to RSS source if need
         rss.getCategories().add(savedCategory);
         rssSourceRepository.save(rss);
+
+        // ADD category name to TOPIC if it not exist
+        topicService.createNewTopicByName(category.getName());
 
         return savedCategory;
     }

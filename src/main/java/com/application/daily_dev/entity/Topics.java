@@ -31,6 +31,9 @@ public class Topics {
     
     private String description;
 
+    public Topics() {
+    }
+
     @ManyToMany(mappedBy = "topics")
     private Set<Articles> articles;
     
