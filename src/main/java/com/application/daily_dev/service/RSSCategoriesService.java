@@ -7,6 +7,7 @@ import java.time.ZoneId;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.application.daily_dev.entity.Articles;
 import com.application.daily_dev.entity.Categories;
@@ -29,6 +30,7 @@ public class RSSCategoriesService {
     @Autowired
     private RSSSourceRepository rssSourceRepository;
 
+    @Transactional
     public void fetchAndStoreArticlesByCategory(Categories category) throws IOException, FeedException {
         String topicUrl = category.getTopicUrl();
 
@@ -77,6 +79,7 @@ public class RSSCategoriesService {
     }
 
     // Save last fetch time
+    @Transactional
     public void updateTimeFetchDataRssSource(RssSources rssSource) {
         rssSource.setLastFetchedAt(LocalDateTime.now());
         rssSourceRepository.save(rssSource);

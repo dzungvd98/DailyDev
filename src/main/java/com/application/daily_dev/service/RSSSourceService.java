@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.application.daily_dev.entity.Categories;
 import com.application.daily_dev.entity.RssSources;
@@ -23,8 +24,8 @@ public class RSSSourceService {
     @Autowired
     private RSSSourceRepository rssSourceRepository;
 
-    public void fetchAndStoreArticlesInSource(Integer source_id) throws IOException, FeedException {
-        RssSources rss = rssSourceRepository.findById(source_id).get();
+    @Transactional
+    public void fetchAndStoreArticlesInSource(RssSources rss) throws IOException, FeedException {
         List<Categories> categories = categoryRepository.findByRssSource(rss);
         System.out.println(categories.size());
         for(Categories category : categories) {
@@ -32,10 +33,11 @@ public class RSSSourceService {
         }
     }
 
+    @Transactional
     public void fetchAndStoreArticles() throws IOException, FeedException {
         List<RssSources> sources = rssSourceRepository.findAll();
         for(RssSources rss : sources) {
-            fetchAndStoreArticlesInSource(rss.getId());
+            fetchAndStoreArticlesInSource(rss);
         }
     }
 }
