@@ -84,5 +84,21 @@ public class RssSources {
         this.createdAt = createdAt;
     }
 
+    public Set<Articles> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Articles> articles) {
+        this.articles = articles;
+    }
+
+    public Set<Categories> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Categories> categories) {
+        this.categories = categories;
+    }
+
     
 }

@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.application.daily_dev.DTO.CategoryDTO;
 import com.application.daily_dev.entity.Articles;
 import com.application.daily_dev.entity.Categories;
 import com.application.daily_dev.entity.RssSources;
 import com.application.daily_dev.model.SourceType;
 import com.application.daily_dev.repository.ArticleRepository;
+import com.application.daily_dev.repository.CategoryRepository;
 import com.application.daily_dev.repository.RSSSourceRepository;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
@@ -21,7 +23,10 @@ import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class RSSCategoriesService {
 
     @Autowired
@@ -29,6 +34,9 @@ public class RSSCategoriesService {
 
     @Autowired
     private RSSSourceRepository rssSourceRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Transactional
     public void fetchAndStoreArticlesByCategory(Categories category) throws IOException, FeedException {
@@ -83,5 +91,28 @@ public class RSSCategoriesService {
     public void updateTimeFetchDataRssSource(RssSources rssSource) {
         rssSource.setLastFetchedAt(LocalDateTime.now());
         rssSourceRepository.save(rssSource);
+    }
+
+    // Create new categories
+    @Transactional
+    public Categories createNewCategory(CategoryDTO categoryDTO) {
+        // Find RSS by id
+        RssSources rss = rssSourceRepository.findById(categoryDTO.getRssSourceId()).orElseThrow(() -> new RuntimeException("RSS Source not found"));
+
+        // Create new category
+        Categories category = Categories.builder()
+                    .name(categoryDTO.getName())
+                    .topicUrl(categoryDTO.getTopicUrl())
+                    .rssSource(rss)
+                    .build();
+
+        // Save category
+        Categories savedCategory = categoryRepository.save(category);
+
+        // ADD category to RSS source if need
+        rss.getCategories().add(savedCategory);
+        rssSourceRepository.save(rss);
+
+        return savedCategory;
     }
 }
