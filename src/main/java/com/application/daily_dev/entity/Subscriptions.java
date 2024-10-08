@@ -2,6 +2,8 @@ package com.application.daily_dev.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,18 +23,22 @@ public class Subscriptions {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followed_tag_id")
+    @JsonBackReference
     private Tags followedTag;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followed_topic_id")
+    @JsonBackReference
     private Topics followedTopic;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followed_user_id")
+    @JsonBackReference
     private Users followedUser;
 
     @Column(name = "created_at")

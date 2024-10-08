@@ -17,6 +17,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "Squads")
 public class Squads {
@@ -34,15 +37,18 @@ public class Squads {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
+    @JsonManagedReference
     private Users user;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ManyToMany(mappedBy = "squads")
+    @JsonIgnore
     private Set<Articles> articles;
 
     @OneToMany(mappedBy = "squad")
+    @JsonManagedReference
     private Set<SquadMembers> members;
 
     public int getId() {

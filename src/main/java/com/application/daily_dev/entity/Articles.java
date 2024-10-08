@@ -3,6 +3,8 @@ package com.application.daily_dev.entity;
 import java.time.LocalDateTime;
 
 import com.application.daily_dev.model.SourceType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -49,10 +51,12 @@ public class Articles {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rss_id")
+    @JsonBackReference
     private RssSources rss;
 
     @PastOrPresent(message = "Updated date must be in the past or present")
@@ -71,12 +75,15 @@ public class Articles {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Bookmarks> bookmarks;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Comments> articleComments;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Reactions> articlesReactions;
 
     @ManyToMany

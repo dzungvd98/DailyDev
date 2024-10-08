@@ -2,6 +2,9 @@ package com.application.daily_dev.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +38,7 @@ public class Topics {
     }
 
     @ManyToMany(mappedBy = "topics")
+    @JsonIgnore
     private Set<Articles> articles;
     
     @ManyToMany
@@ -46,6 +50,7 @@ public class Topics {
     private Set<Tags> tags;
 
     @OneToMany(mappedBy = "followedTopic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Subscriptions> followingTopics;
 
     public int getId() {

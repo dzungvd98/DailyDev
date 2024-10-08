@@ -1,8 +1,9 @@
 package com.application.daily_dev.service;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,11 @@ public class ArticleService {
     @Autowired
     private ArticleRepository articleRepository;
 
-    public List<Articles> getArticlesTopView(int page) {
-        Pageable pageable = PageRequest.of(page, 10);
-        return articleRepository.findTopArticlesByReactionCount(pageable);
-        
+    public Page<Articles> getArticlesTopView(int page, int size, int minusDays) {
+        LocalDateTime startDate = LocalDateTime.now().minusDays(minusDays); 
+        Pageable pageable = PageRequest.of(page, size);
+        return articleRepository.findTopArticlesByReactionCount(startDate, pageable);
     }
+
+
 }

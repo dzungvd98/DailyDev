@@ -3,6 +3,7 @@ package com.application.daily_dev.entity;
 import java.time.LocalDateTime;
 
 import com.application.daily_dev.model.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,10 +26,12 @@ public class SquadMembers {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "squad_id")
+    @JsonBackReference
     private Squads squad;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
     @Enumerated(EnumType.STRING)

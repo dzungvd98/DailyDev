@@ -3,6 +3,7 @@ package com.application.daily_dev.entity;
 import java.time.LocalDateTime;
 
 import com.application.daily_dev.model.ReactionType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,14 +26,17 @@ public class Reactions {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "article_id")
+    @JsonBackReference
     private Articles article;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
+    @JsonBackReference
     private Comments comment;
 
     @Enumerated(EnumType.STRING)

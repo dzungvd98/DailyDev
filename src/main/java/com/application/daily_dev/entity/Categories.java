@@ -1,5 +1,7 @@
 package com.application.daily_dev.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -33,6 +35,7 @@ public class Categories {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rss_source_id")
+    @JsonBackReference
     private RssSources rssSource;
 
     public int getId() {

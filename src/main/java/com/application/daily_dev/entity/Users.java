@@ -3,6 +3,8 @@ package com.application.daily_dev.entity;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,21 +48,27 @@ public class Users {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<SquadMembers> squadMemberships;
 
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Articles> articles;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Bookmarks> bookmarks;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Comments> comments;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Reactions> reactions;
 
     @OneToMany(mappedBy = "followedUser", cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Subscriptions> followingUsers;
 
     public Users() {

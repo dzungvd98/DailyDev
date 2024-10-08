@@ -14,6 +14,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "Tags")
 public class Tags {
@@ -27,12 +30,15 @@ public class Tags {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
     private Set<Articles> articles;
 
     @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
     private Set<Topics> topics;
 
     @OneToMany(mappedBy = "followedTag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Subscriptions> followingTags;
 
     public int getId() {
