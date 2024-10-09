@@ -3,10 +3,15 @@ package com.application.daily_dev.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.application.daily_dev.DTO.CategoryDTO;
 import com.application.daily_dev.entity.Categories;
 import com.application.daily_dev.entity.RssSources;
 import com.application.daily_dev.repository.CategoryRepository;
@@ -39,5 +44,42 @@ public class RSSSourceService {
         for(RssSources rss : sources) {
             fetchAndStoreArticlesInSource(rss);
         }
+    }
+
+    @Transactional
+    // Handle create category from rss link
+    public void extractAndSaveCategoryFromSourceLink(RssSources rss) {
+        try {
+            // Connect to url and get html document
+            Document doc = Jsoup.connect(rss.getRssUrl()).get();
+
+            // Get all a of rss category
+            Elements links = doc.select(rss.getContentSelector());
+
+            for (Element link : links) {
+                String href = link.attr("href");
+                String title = link.attr("title");
+
+                // Create categoryDTO to create new category
+                createCategoryByLink(rss, href, title);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Create category from link tag a
+    @Transactional
+    public void createCategoryByLink(RssSources rss, String href, String title) {
+        CategoryDTO category = new CategoryDTO();
+        category.setName(title);
+        category.setRssSourceId(rss.getId());
+        category.setTopicUrl(rss.getWebsite() + href);
+        rssCategoriesService.createNewCategory(category);
+    }
+
+    @Transactional
+    public void createNewRssSource(RssSources newSource) {
+        
     }
 }

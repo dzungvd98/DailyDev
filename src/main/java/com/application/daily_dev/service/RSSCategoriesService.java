@@ -64,6 +64,7 @@ public class RSSCategoriesService {
     }
 
     // Create new article
+    @Transactional
     public void saveNewArticle(Categories category, SyndEntry entry) {
         Articles article = new Articles();
         article.setTitle(entry.getTitle());

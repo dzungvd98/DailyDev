@@ -34,6 +34,16 @@ public class RssSources {
     @Column(name = "rss_url")
     private String rssUrl;
 
+    @NotBlank(message = "Content selector is required")
+    @Size(max = 255, message = "content selector must be less than 255 characters")
+    @Column(name = "content_selector")
+    private String contentSelector;
+
+    @NotBlank(message = "Website is required")
+    @Size(max = 100, message = "Website must be less than 255 characters")
+    @Column(name = "website")
+    private String website;
+
     @Column(name = "last_fetched_at")
     private LocalDateTime lastFetchedAt;
     
@@ -102,6 +112,22 @@ public class RssSources {
 
     public void setCategories(Set<Categories> categories) {
         this.categories = categories;
+    }
+
+    public String getContentSelector() {
+        return contentSelector;
+    }
+
+    public void setContentSelector(String contentSelector) {
+        this.contentSelector = contentSelector;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     
