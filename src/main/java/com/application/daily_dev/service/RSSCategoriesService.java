@@ -103,7 +103,11 @@ public class RSSCategoriesService {
     public Categories createNewCategory(CategoryDTO categoryDTO) {
         // Find RSS by id
         RssSources rss = rssSourceRepository.findById(categoryDTO.getRssSourceId()).orElseThrow(() -> new RuntimeException("RSS Source not found"));
-
+        
+        // Check is category exist
+        if(categoryRepository.existsByTopicUrlAndName(categoryDTO.getTopicUrl(), categoryDTO.getName())) {
+            throw new RuntimeException("Category was existed");
+        }
         // Create new category
         Categories category = Categories.builder()
                     .name(categoryDTO.getName())
@@ -115,7 +119,7 @@ public class RSSCategoriesService {
         Categories savedCategory = categoryRepository.save(category);
 
         // ADD category to RSS source if need
-        rss.getCategories().add(savedCategory);
+        rss.addCategory(savedCategory);
         rssSourceRepository.save(rss);
 
         // ADD category name to TOPIC if it not exist

@@ -1,6 +1,7 @@
 package com.application.daily_dev.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -16,9 +17,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "RSS_Sources")
+@NoArgsConstructor
+@AllArgsConstructor
 public class RssSources {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,6 +113,13 @@ public class RssSources {
 
     public Set<Categories> getCategories() {
         return categories;
+    }
+
+    public void addCategory(Categories category) {
+        if(categories == null) {
+            categories = new HashSet<>();
+        }
+        categories.add(category);
     }
 
     public void setCategories(Set<Categories> categories) {

@@ -1,6 +1,7 @@
 package com.application.daily_dev.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.application.daily_dev.DTO.CategoryDTO;
+import com.application.daily_dev.DTO.RssSourceDTO;
 import com.application.daily_dev.entity.Categories;
 import com.application.daily_dev.entity.RssSources;
 import com.application.daily_dev.repository.CategoryRepository;
@@ -79,7 +81,22 @@ public class RSSSourceService {
     }
 
     @Transactional
-    public void createNewRssSource(RssSources newSource) {
+    public RssSources createNewRssSource(RssSourceDTO newSource) {
+
+        if(rssSourceRepository.existsByWebsite(newSource.getWebsiteUrl())) {
+            throw new RuntimeException("Source url is exist");
+        }
+        RssSources rss = new RssSources();
+        rss.setRssUrl(newSource.getRssUrl());
+        rss.setContentSelector(newSource.getContentSelector());
+        rss.setCreatedAt(LocalDateTime.now());
+        rss.setLastFetchedAt(LocalDateTime.now());
+        rss.setSourceName(newSource.getSourceName());
+        rss.setWebsite(newSource.getWebsiteUrl());
+        RssSources newSourceCreated = rssSourceRepository.save(rss);
         
+        //if success extract link and create category
+        extractAndSaveCategoryFromSourceLink(newSourceCreated);
+        return newSourceCreated;  
     }
 }
