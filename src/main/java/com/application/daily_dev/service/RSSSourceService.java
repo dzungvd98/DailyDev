@@ -97,6 +97,6 @@ public class RSSSourceService {
         
         //if success extract link and create category
         extractAndSaveCategoryFromSourceLink(newSourceCreated);
-        return newSourceCreated;  
+        return newSourceCreated; 
     }
 }

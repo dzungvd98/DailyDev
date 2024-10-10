@@ -118,10 +118,6 @@ public class RSSCategoriesService {
         // Save category
         Categories savedCategory = categoryRepository.save(category);
 
-        // ADD category to RSS source if need
-        rss.addCategory(savedCategory);
-        rssSourceRepository.save(rss);
-
         // ADD category name to TOPIC if it not exist
         topicService.createNewTopicByName(category.getName());
 
