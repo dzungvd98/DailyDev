@@ -34,7 +34,6 @@ public class RSSSourceService {
     @Transactional
     public void fetchAndStoreArticlesInSource(RssSources rss) throws IOException, FeedException {
         List<Categories> categories = categoryRepository.findByRssSource(rss);
-        System.out.println(categories.size());
         for(Categories category : categories) {
             rssCategoriesService.fetchAndStoreArticlesByCategory(category);
         }
@@ -76,7 +75,13 @@ public class RSSSourceService {
         CategoryDTO category = new CategoryDTO();
         category.setName(title);
         category.setRssSourceId(rss.getId());
-        category.setTopicUrl(rss.getWebsite() + href);
+        // Check is href of category is contain all link or just rss/...
+        if(href.contains("http")) {
+            category.setTopicUrl(href);
+        } else {
+            category.setTopicUrl(rss.getWebsite() + href);
+        }
+        
         rssCategoriesService.createNewCategory(category);
     }
 
