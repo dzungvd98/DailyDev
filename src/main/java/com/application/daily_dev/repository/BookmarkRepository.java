@@ -16,5 +16,5 @@ public interface BookmarkRepository extends JpaRepository<Bookmarks, Integer>{
     @Query(value = "SELECT * FROM Bookmarks b WHERE b.user_id = :userId", 
            countQuery = "SELECT COUNT(*) FROM Bookmarks b WHERE b.user_id = :userId",
             nativeQuery = true)
-    Page<Bookmarks> findByUser(@Param("userId")Integer userId, Pageable pageable);
+    Page<Bookmarks> findByUserId(@Param("userId")Integer userId, Pageable pageable);
 }
