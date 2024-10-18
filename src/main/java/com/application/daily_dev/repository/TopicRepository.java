@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.application.daily_dev.entity.Topics;
 import java.util.Optional;
+
 @Repository
 public interface TopicRepository extends JpaRepository<Topics, Integer>{
     boolean existsByName(String name);

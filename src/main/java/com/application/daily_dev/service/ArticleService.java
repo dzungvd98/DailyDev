@@ -96,4 +96,10 @@ public class ArticleService {
         }
 
     }
+
+    // get list articles by topic id
+    public Page<Articles> getArticlesByTopicId(int page, int size, int topicId) {
+        Pageable pageable = PageRequest.of(page, size);
+        return articleRepository.findListArticlesByTopic(topicId, pageable);
+    }
 }

@@ -35,4 +35,12 @@ public interface ArticleRepository extends JpaRepository<Articles, Integer>{
            "GROUP BY a " +
            "ORDER BY reactionCount DESC, a.createdAt")
     Page<Articles> findPersonalizedArticlesByUser(@Param("userId") int userId, Pageable pageable);
+
+
+    @Query("SELECT a " +
+           "FROM Topics t " + 
+           "JOIN t.articles a " +
+           "WHERE t.id = :topicId " +
+           "ORDER BY a.createdAt DESC")
+    Page<Articles> findListArticlesByTopic(@Param("topicId") int topicId, Pageable pageable); 
 }

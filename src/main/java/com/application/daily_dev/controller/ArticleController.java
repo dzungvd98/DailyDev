@@ -50,4 +50,15 @@ public class ArticleController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/topic/{topicId}")
+    public ResponseEntity<?> getArticlesByTopic(@RequestParam(defaultValue = "0") int page,
+                                                @RequestParam(defaultValue = "10") int size,
+                                                @RequestParam(defaultValue = "a") int topicId) {
+        try {
+            return ResponseEntity.ok(articleService.getArticlesByTopicId(page, size, topicId));
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }                                          
+    }
 }
