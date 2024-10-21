@@ -2,6 +2,7 @@ package com.application.daily_dev.entity;
 
 import java.time.LocalDateTime;
 
+import com.application.daily_dev.model.FollowType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -15,8 +16,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Subscriptions")
-public class Subscriptions {
+@Table(name = "User_Follows")
+public class Follows {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,6 +26,9 @@ public class Subscriptions {
     @JoinColumn(name = "user_id")
     @JsonBackReference
     private Users user;
+    
+    @Column(name = "followed_type")
+    FollowType followType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "followed_tag_id")
@@ -41,8 +45,8 @@ public class Subscriptions {
     @JsonBackReference
     private Users followedUser;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "followed_at ")
+    private LocalDateTime followedAt;
 
     public int getId() {
         return id;
@@ -84,12 +88,20 @@ public class Subscriptions {
         this.followedUser = followedUser;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getFollowedAt() {
+        return followedAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setFollowedAt(LocalDateTime createdAt) {
+        this.followedAt = createdAt;
+    }
+
+    public FollowType getFollowType() {
+        return followType;
+    }
+
+    public void setFollowType(FollowType followType) {
+        this.followType = followType;
     }
 
     
