@@ -69,7 +69,7 @@ public class Users {
 
     @OneToMany(mappedBy = "followedUser", cascade =  CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference
-    private Set<Subscriptions> followingUsers;
+    private Set<Follows> followingUsers;
 
     public Users() {
     }

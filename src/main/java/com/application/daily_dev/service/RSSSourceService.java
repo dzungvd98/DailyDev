@@ -41,7 +41,7 @@ public class RSSSourceService {
 
     @Transactional
     public void fetchAndStoreArticles() throws IOException, FeedException {
-        List<RssSources> sources = rssSourceRepository.findAll();
+        List<RssSources> sources = rssSourceRepository.findAll();//batching, trunk
         for(RssSources rss : sources) {
             fetchAndStoreArticlesInSource(rss);
         }

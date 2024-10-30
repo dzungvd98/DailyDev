@@ -39,7 +39,7 @@ public class Tags {
 
     @OneToMany(mappedBy = "followedTag", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Subscriptions> followingTags;
+    private Set<Follows> followingTags;
 
     public int getId() {
         return id;

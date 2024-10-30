@@ -51,7 +51,7 @@ public class Topics {
 
     @OneToMany(mappedBy = "followedTopic", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Set<Subscriptions> followingTopics;
+    private Set<Follows> followingTopics;
 
     public int getId() {
         return id;
@@ -93,11 +93,11 @@ public class Topics {
         this.tags = tags;
     }
 
-    public Set<Subscriptions> getFollowingTopics() {
+    public Set<Follows> getFollowingTopics() {
         return followingTopics;
     }
 
-    public void setFollowingTopics(Set<Subscriptions> followingTopics) {
+    public void setFollowingTopics(Set<Follows> followingTopics) {
         this.followingTopics = followingTopics;
     }
 
