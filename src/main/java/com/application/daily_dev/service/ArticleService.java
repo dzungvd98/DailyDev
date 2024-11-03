@@ -102,4 +102,24 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, size);
         return articleRepository.findListArticlesByTopic(topicId, pageable);
     }
+
+    public void deleteArticle(int id) {
+        articleRepository.deleteById(id);
+    }
+
+    public Articles createArticle(Articles article) {
+        Articles createdArticle = articleRepository.save(article);
+        return createdArticle;
+    }
+
+    public Articles updateArticle(int id, Articles article) {
+        Articles articleNeedUpdate = articleRepository.findById(id).get();
+        articleNeedUpdate.setContent(article.getContent());
+        articleNeedUpdate.setLink(article.getLink());
+        articleNeedUpdate.setUpdatedAt(LocalDateTime.now());
+        articleNeedUpdate.setThumbnailUrl(article.getThumbnailUrl());
+        articleNeedUpdate.setTitle(article.getTitle());
+        articleNeedUpdate.setTags(article.getTags());
+        return articleRepository.save(article);
+    }
 }
