@@ -20,4 +20,12 @@ public class BookmarkService {
         Pageable pageable = PageRequest.of(page, size);
         return bookmarkRepository.findByUserId(userId, pageable);
     }
+
+    public Bookmarks createBookmark(Bookmarks bookmark) {
+        return bookmarkRepository.save(bookmark);
+    }
+
+    public void deleteBookmark(Integer bookmarkId) {
+        bookmarkRepository.deleteById(bookmarkId);
+    }
 }
